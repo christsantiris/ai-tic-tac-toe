@@ -34,3 +34,23 @@ def choose_symbol():
 def clear_screen():
     # Clear the console screen
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def handle_quit():
+    """Set up signal handlers to gracefully quit the game with keyboard shortcuts."""
+    import signal
+    import sys
+    
+    def signal_handler(sig, frame):
+        print(f"\n\n{Colors.YELLOW}{Colors.BOLD}Game Quit. Thanks for playing!{Colors.RESET}")
+        sys.exit(0)
+    
+    # Register the signal handler for CTRL+C (SIGINT)
+    signal.signal(signal.SIGINT, signal_handler)
+    
+    # On Windows, CTRL+Break is SIGBREAK
+    if hasattr(signal, 'SIGBREAK'):  # Windows only
+        signal.signal(signal.SIGBREAK, signal_handler)
+    
+    # On Unix systems, register for SIGTERM as well
+    if hasattr(signal, 'SIGTERM'):
+        signal.signal(signal.SIGTERM, signal_handler)

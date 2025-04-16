@@ -1,7 +1,7 @@
 import time
-from game.utilities import clear_screen
+from game.utilities import clear_screen, handle_quit
 from game.user_interface import print_title, Colors
-from players.players import HumanPlayer, RandomComputerPlayer
+from players.players import HumanPlayer
 
 class TicTacToe:
     def __init__(self):
@@ -100,6 +100,7 @@ class TicTacToe:
         return False
     
 def play_game(game, x_player, o_player, print_game=True):
+    handle_quit()
     # Play a game of tic tac toe
     if print_game:
         clear_screen()
