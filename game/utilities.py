@@ -1,25 +1,27 @@
-from players.players import RandomComputerPlayer, SmartComputerPlayer, HumanPlayer
+import os
+from players.players import RandomComputerPlayer, AIComputerPlayer, HumanPlayer
+from game.user_interface import Colors
 
 def choose_player():
-    print("Select your opponent:")
-    print("1. Random AI (easy)")
-    print("2. Smart AI (impossible to beat)")
+    print(f"{Colors.BOLD}Select your opponent:{Colors.RESET}")
+    print(f"1. {Colors.GREEN}Random AI{Colors.RESET} (Easy difficulty)")
+    print(f"2. {Colors.RED}Smart AI{Colors.RESET} (Impossible to beat)")
     
     while True:
-        choice = input("Enter 1 or 2: ")
+        choice = input(f"\nEnter your choice {Colors.CYAN}(1 or 2){Colors.RESET}: ")
         if choice == '1':
             return RandomComputerPlayer('O')
         elif choice == '2':
-            return SmartComputerPlayer('O')
+            return AIComputerPlayer('O')
         else:
-            print("Invalid choice. Please enter 1 or 2.")
+            print(f"{Colors.YELLOW}Invalid choice. Please enter 1 or 2.{Colors.RESET}")
 
 def choose_symbol():
-    print("Do you want to play as X or O?")
-    print("X goes first, O goes second.")
+    print(f"{Colors.BOLD}Do you want to play as X or O?{Colors.RESET}")
+    print(f"{Colors.BLUE}X{Colors.RESET} goes first, {Colors.RED}O{Colors.RESET} goes second.")
     
     while True:
-        choice = input("Enter X or O: ").upper()
+        choice = input(f"\nEnter your choice {Colors.CYAN}(X or O){Colors.RESET}: ").upper()
         if choice == 'X':
             return HumanPlayer('X'), choose_player()
         elif choice == 'O':
@@ -27,4 +29,8 @@ def choose_symbol():
             ai_type.letter = 'X'
             return ai_type, HumanPlayer('O')
         else:
-            print("Invalid choice. Please enter X or O.")
+            print(f"{Colors.YELLOW}Invalid choice. Please enter X or O.{Colors.RESET}")
+
+def clear_screen():
+    # Clear the console screen
+    os.system('cls' if os.name == 'nt' else 'clear')

@@ -1,6 +1,6 @@
 import time
 
-from game import utilities, tictactoe
+from game import utilities, tictactoe, user_interface
 
 def main(game, x_player, o_player, print_game=True):
     # Play a game of tic tac toe
@@ -45,25 +45,28 @@ def main(game, x_player, o_player, print_game=True):
     if print_game:
         print('It\'s a tie!')
 
-if __name__ == '__main__':
-    print("Welcome to a simple AI Tic Tac Toe!")
-    print("Enter numbers 1-9 as shown on the board:")
-    
+def main():
     play_again = True
     
     while play_again:
+        utilities.clear_screen()
+        user_interface.print_title()
+        
         x_player, o_player = utilities.choose_symbol()
         t = tictactoe.TicTacToe()
-        main(t, x_player, o_player, print_game=True)
+        tictactoe.play_game(t, x_player, o_player, print_game=True)
         
         while True:
-            again = input("Play again? (y/n): ").lower()
+            again = input(f"Play again? {user_interface.Colors.CYAN}(y/n){user_interface.Colors.RESET}: ").lower()
             if again == 'y':
                 break
             elif again == 'n':
                 play_again = False
                 break
             else:
-                print("Invalid input. Please enter 'y' or 'n'.")
+                print(f"{user_interface.Colors.YELLOW}Invalid input. Please enter 'y' or 'n'.{user_interface.Colors.RESET}")
     
-    print("Good game!")
+    print(f"\n{user_interface.Colors.GREEN}{user_interface.Colors.BOLD}Good Game!{user_interface.Colors.RESET}\n")
+
+if __name__ == '__main__':
+    main()
